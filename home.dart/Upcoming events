@@ -1,0 +1,490 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'societies.dart';
+import 'event_highlights.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+class Home extends StatefulWidget {
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  final pageViewController = PageController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'MSCW',
+          style: TextStyle(
+            color: Colors.white,
+            fontFamily: 'Roboto',
+            fontWeight: FontWeight.bold,
+            fontSize: 17.0,
+          ),
+        ),
+        backgroundColor: Color(0xFF0091DE),
+        centerTitle: true,
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Color(0xFF0091DE),
+              ),
+              child: Column(
+                children: <Widget>[
+                  CircleAvatar(
+                    radius: 40.0,
+                    backgroundColor: const Color(0xff0091DE),
+                    child: Image.asset('images/msc_logo.png'),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 8.0),
+                    child: Text(
+                      "MATA SUNDRI COLLEGE FOR WOMEN",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12.0,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 8.0),
+                    child: Text(
+                      "University of Delhi",
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 10.0,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            ListTile(
+              onTap: () {
+                Navigator.of(context).pushNamed('home');
+              },
+              title: Text('HOME PAGE'),
+              leading: Icon(Icons.home),
+            ),
+            ListTile(
+              onTap: () {
+                Navigator.of(context).pushNamed('societies');
+              },
+              title: Text('SOCITIES'),
+              leading: Icon(Icons.people),
+            ),
+            ListTile(
+              onTap: () {
+                Navigator.of(context).pushNamed('event_highlights');
+              },
+              title: Text('EVENT HIGHLIGHT'),
+              leading: Icon(Icons.highlight),
+            ),
+            ListTile(
+              onTap: () {
+                Navigator.of(context).pushNamed('raise_issue');
+              },
+              title: Text('RAISE AN ISSUE'),
+              leading: Icon(Icons.headset_mic),
+            ),
+            ListTile(
+              onTap: () {},
+              title: Text('VISIT OUR WEBSITE'),
+              leading: Icon(Icons.web),
+            ),
+            ListTile(
+              onTap: () {
+                Navigator.of(context).pushNamed('contact');
+              },
+              title: Text('CONTACT US'),
+              leading: Icon(Icons.call),
+            ),
+            ListTile(
+              onTap: () {},
+              title: Text('PUBLISH OPPORTUNITY'),
+              leading: Icon(Icons.home),
+            ),
+            ListTile(
+              onTap: () {},
+              title: Text('ADMIN LOGIN'),
+              leading: Icon(Icons.login),
+            ),
+            ListTile(
+              onTap: () {},
+              title: Text('FAQ\'s'),
+              leading: Icon(Icons.help),
+            ),
+          ],
+        ),
+      ),
+      body: SafeArea(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height * 1,
+          decoration: BoxDecoration(
+            color: Color(0xFFFFFF),
+          ),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                  ),
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.width / 2,
+                  child: Stack(
+                    children: [
+                      PageView(
+                        scrollDirection: Axis.horizontal,
+                        controller: pageViewController,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Image.network(
+                              'https://picsum.photos/250?image=9',
+                              width: 100,
+                              height: 100,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Image.network(
+                              'https://picsum.photos/250?image=2',
+                              width: 100,
+                              height: 100,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Image.network(
+                              'https://picsum.photos/250?image=5',
+                              width: 100,
+                              height: 100,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Align(
+                        alignment: AlignmentDirectional(0, 0.85),
+                        child: SmoothPageIndicator(
+                          controller: pageViewController,
+                          count: 3,
+                          axisDirection: Axis.horizontal,
+                          onDotClicked: (i) {
+                            pageViewController.animateToPage(
+                              i,
+                              duration: Duration(milliseconds: 500),
+                              curve: Curves.ease,
+                            );
+                          },
+                          effect: ExpandingDotsEffect(
+                            expansionFactor: 2,
+                            spacing: 8,
+                            radius: 8,
+                            dotWidth: 8,
+                            dotHeight: 8,
+                            dotColor: Color(0xFF9E9E9E),
+                            activeDotColor: Color(0xFFFFBA15),
+                            paintStyle: PaintingStyle.fill,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  color: Color(0xFF720972),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(
+                      "UPCOMING EVENTS",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, letterSpacing: 2),
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      addEvent(),
+                      addEvent1(),
+                      addEvent2(),
+                      addEvent3(),
+                      addEvent4(),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+Widget addEvent() {
+  return Container(
+    child: Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Color(0xFFF1F2F2),
+              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 12.0, left: 12.0, bottom: 4.0, right: 12.0),
+                  child: Text(
+                    "PEER MENTORSHIP",
+                    textAlign: TextAlign.justify,
+                    style: TextStyle(color: Color(0xFF720972), fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 4.0, left: 12.0, bottom: 8.0, right: 12.0),
+                  child: Text(
+                    "A 30 hour peer mentorship programme on the Topic: Blender and 3-D Animation was held virtually in the college from 5th August 2021- 31st August 2021. The students learnt the basics of Blender, which included all its tools, functionalities, and the various shortcut keys used in the software. Rigourous work started from the second day of the workshop, where the first 3-D project made was an astronaut. With the constant...",
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.justify,
+                    style: GoogleFonts.lato(color: Colors.black87),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 4.0, left: 12.0, bottom: 12.0, right: 12.0),
+                  child: Text(
+                    "Read More",
+                    textAlign: TextAlign.justify,
+                    style: TextStyle(color: Color(0xFF0091DE), fontWeight: FontWeight.bold, decoration: TextDecoration.underline),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget addEvent1() {
+  return Container(
+    child: Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Color(0xFFF1F2F2),
+              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 12.0, left: 12.0, bottom: 4.0, right: 12.0),
+                  child: Text(
+                    "UN-LOCK BENEFITS OF LINKEDIN",
+                    textAlign: TextAlign.justify,
+                    style: TextStyle(color: Color(0xFF720972), fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 4.0, left: 12.0, bottom: 8.0, right: 12.0),
+                  child: Text(
+                    'When it comes to utilizing social network as a tool to advance your professional career, LinkedIn is at the top of the list and incomparable to any other social network when it comes to business. With this notion, on 4th September 2021, ...',
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.justify,
+                    style: GoogleFonts.lato(color: Colors.black87),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 4.0, left: 12.0, bottom: 12.0, right: 12.0),
+                  child: Text(
+                    "Read More",
+                    textAlign: TextAlign.justify,
+                    style: TextStyle(color: Color(0xFF0091DE), fontWeight: FontWeight.bold, decoration: TextDecoration.underline),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget addEvent2() {
+  return Container(
+    child: Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Color(0xFFF1F2F2),
+              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 12.0, left: 12.0, bottom: 4.0, right: 12.0),
+                  child: Text(
+                    "FINANCIAL WELLNESS",
+                    textAlign: TextAlign.justify,
+                    style: TextStyle(color: Color(0xFF720972), fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 4.0, left: 12.0, bottom: 8.0, right: 12.0),
+                  child: Text(
+                    'The Placement and Internship Cell, Mata Sundri College for Women, hosted an interactive session on “Financial Wellness” by one of the prestigious members of BIAP, Ms. Daksha Gogia...',
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.justify,
+                    style: GoogleFonts.lato(color: Colors.black87),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 4.0, left: 12.0, bottom: 12.0, right: 12.0),
+                  child: Text(
+                    "Read More",
+                    textAlign: TextAlign.justify,
+                    style: TextStyle(color: Color(0xFF0091DE), fontWeight: FontWeight.bold, decoration: TextDecoration.underline),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget addEvent3() {
+  return Container(
+    child: Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Color(0xFFF1F2F2),
+              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 12.0, left: 12.0, bottom: 4.0, right: 12.0),
+                  child: Text(
+                    "SUCCESS THROUGH TEAMWORK",
+                    textAlign: TextAlign.justify,
+                    style: TextStyle(color: Color(0xFF720972), fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 4.0, left: 12.0, bottom: 8.0, right: 12.0),
+                  child: Text(
+                    "the introduction speech by our NCC Caretaker Ms. Gurvinder Kaur and Ms. Ishleen Kaur. After this ma’am invited our Principal Prof. Dr. Harpreet Kaur to throw light on commencements of the program and further welcomed Col. Dr. M.P. Singh...",
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.justify,
+                    style: GoogleFonts.lato(color: Colors.black87),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 4.0, left: 12.0, bottom: 12.0, right: 12.0),
+                  child: Text(
+                    "Read More",
+                    textAlign: TextAlign.justify,
+                    style: TextStyle(color: Color(0xFF0091DE), fontWeight: FontWeight.bold, decoration: TextDecoration.underline),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget addEvent4() {
+  return Container(
+    child: Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Color(0xFFF1F2F2),
+              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 12.0, left: 12.0, bottom: 4.0, right: 12.0),
+                  child: Text(
+                    "REBOOT",
+                    textAlign: TextAlign.justify,
+                    style: TextStyle(color: Color(0xFF720972), fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 4.0, left: 12.0, bottom: 8.0, right: 12.0),
+                  child: Text(
+                    "The Annual Technical Fest of Department of Computer Science, in which many different competitions are being organized every year to give students some break from their monotonous schedule...",
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.justify,
+                    style: GoogleFonts.lato(color: Colors.black87),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 4.0, left: 12.0, bottom: 12.0, right: 12.0),
+                  child: Text(
+                    "Read More",
+                    textAlign: TextAlign.justify,
+                    style: TextStyle(color: Color(0xFF0091DE), fontWeight: FontWeight.bold, decoration: TextDecoration.underline),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
